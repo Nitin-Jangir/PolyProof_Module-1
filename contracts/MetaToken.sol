@@ -5,24 +5,26 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract CustomNFT is ERC721Enumerable, Ownable {
+contract ModifiedNFT is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenCounter;
 
-    mapping(uint256 => string) private tokenPrompts;
+    mapping(uint256 => string) private tokenDescriptions;
 
-    constructor() ERC721("CustomNFT", "CNFT") {}
+    constructor() ERC721("ModifiedNFT", "MNFT") {}
 
-function promptDescription()public pure returns(string memory des)
-        {
+    function setDescription(uint256 tokenId, string memory description) external onlyOwner {
+        tokenDescriptions[tokenId] = description;
+    }
 
-           return( "animal children in rain old man cricket");
-        }
+    function getDescription(uint256 tokenId) external view returns (string memory) {
+        return tokenDescriptions[tokenId];
+    }
 
-    function mintToken(address receiver, string memory cid) external onlyOwner {
+    function mintNewToken(address receiver, string memory description) external onlyOwner {
         uint256 tokenId = _tokenCounter.current();
         _mint(receiver, tokenId);
-        tokenPrompts[tokenId] = cid;
+        tokenDescriptions[tokenId] = description;
         _tokenCounter.increment();
     }
 }
