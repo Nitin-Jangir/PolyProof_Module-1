@@ -56,6 +56,7 @@ This scripts mints the NFTs to your wallet address.
 
 - This Script approves and bridges our NFTs from goerli to Mumbai testnet.
 
+
 ### getBalance of Mumbai Testnet
 
 - The contract address of NFTs deploymnet and wallet address must be provided to getBalance.js script.
